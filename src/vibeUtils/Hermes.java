@@ -9,12 +9,13 @@ import java.net.UnknownHostException;
 public class Hermes {
 
 	final static String DefaultIP="igtnet-w.ddns.net";
+	final static int DefaultPort=757;
 
-	public static String ServerCommand(String ClientMSG, boolean DebugMode, String ServerIP) {
+	public static String ServerCommand(String ClientMSG, boolean DebugMode, String ServerIP,int Port) {
 		//This is all encapsulated in a try, just in case.
 		try {
 			//This sets up a socket, and connects to the server.
-			Socket theSocket=new Socket(ServerIP, 757);
+			Socket theSocket=new Socket(ServerIP, Port);
 
 			//The Readers and Writers
 			DataOutputStream MercuryOne = new DataOutputStream(theSocket.getOutputStream());
@@ -61,6 +62,6 @@ public class Hermes {
 		//If anything happens for whatever reason, return E
 		return "E";}
 
-	public static String ServerCommand(String ClientMSG) {return ServerCommand(ClientMSG,false,DefaultIP);}
-	public static String ServerCommand(String ClientMSG,boolean DebugMode) {return ServerCommand(ClientMSG,DebugMode,DefaultIP);}
+	public static String ServerCommand(String ClientMSG) {return ServerCommand(ClientMSG,false,DefaultIP,DefaultPort);}
+	public static String ServerCommand(String ClientMSG,boolean DebugMode) {return ServerCommand(ClientMSG,DebugMode,DefaultIP,DefaultPort);}
 }
