@@ -8,8 +8,8 @@ import java.net.UnknownHostException;
 
 public class Hermes {
 
-	final static String DefaultIP="igtnet-w.ddns.net";
-	final static int DefaultPort=757;
+	final static String DefaultIP="localhost";
+	final static int DefaultPort=797;
 
 	public static String ServerCommand(String ClientMSG, boolean DebugMode, String ServerIP,int Port) {
 		//This is all encapsulated in a try, just in case.
