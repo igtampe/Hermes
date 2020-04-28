@@ -1,4 +1,4 @@
-package vibeUtils;
+package SmokeSignalUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,11 +6,25 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Hermes is a tiny class that can be used to communicate with SmokeSignal servers from a Java Application
+ * If you plan on using this, consider not accessing it directly, instead constructing helper classes
+ * that can call it instead!
+ * @author igtampe
+ */
 public class Hermes {
 
-	final static String DefaultIP="igtnet-w.ddns.net";
-	final static int DefaultPort=757;
+	final static String DefaultIP="localhost";
+	final static int DefaultPort=797;
 
+	/**
+	 * Sends a command to a SmokeSignal server
+	 * @param ClientMSG Message to send to the server
+	 * @param DebugMode DebugMode, that will spit out the progress of the BinaryReader while it reads
+	 * @param ServerIP IP of the server you want to connect to
+	 * @param Port Port of the server you want to connect to
+	 * @return A return message from the server
+	 */
 	public static String ServerCommand(String ClientMSG, boolean DebugMode, String ServerIP,int Port) {
 		//This is all encapsulated in a try, just in case.
 		try {
@@ -62,6 +76,23 @@ public class Hermes {
 		//If anything happens for whatever reason, return E
 		return "E";}
 
+	/**
+	 * Sends a command to a SmokeSignal server. Will send to the default IP and Port.
+	 * @param ClientMSG Message to send to the server
+	 * @return A return message from the server
+	 */
 	public static String ServerCommand(String ClientMSG) {return ServerCommand(ClientMSG,false,DefaultIP,DefaultPort);}
 	public static String ServerCommand(String ClientMSG,boolean DebugMode) {return ServerCommand(ClientMSG,DebugMode,DefaultIP,DefaultPort);}
+	
+	/**
+	 * Used to send commands to a SmokeSignal V7 Server that supports Authentication.
+	 * We send it by default as plaintext, but your SmokeSignal Application can use any encryption you want to send it, and decode it on the other end.
+	 * 
+	 * @param Username Username of the client
+	 * @param Password Password of the client.
+	 * @param ClientMSG Message you want to send to the server
+	 * @return A return from the server.
+	 */
+	public static String AuthenticatedServerCommand(String Username, String Password, String ClientMSG) {return ServerCommand(Username+"|"+Password+"|"+ClientMSG,false,DefaultIP,DefaultPort);}
+	
 }
